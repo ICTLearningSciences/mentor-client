@@ -3,8 +3,6 @@
   "name": "Clinton Anderson",
   "title": "Nuclear Electrician's Mate",
   "mentorType": "VIDEO",
-  "defaultSubject": null,
-  "subjects": [],
   "topics": [
     {
       "id": "aboutme",
@@ -18,8 +16,7 @@
   "questions": [
     {
       "question": {
-        "question": "Where were you born?",
-        "type": "QUESTION"
+        "question": "Where were you born?"
       },
       "topics": [
         {
@@ -30,8 +27,7 @@
     },
     {
       "question": {
-        "question": "What qualifications and experience do recruiters look for when choosing new people for this field?",
-        "type": "QUESTION"
+        "question": "What qualifications and experience do recruiters look for when choosing new people for this field?"
       },
       "topics": [
         {
@@ -42,8 +38,7 @@
     },
     {
       "question": {
-        "question": "Are you fun at parties?",
-        "type": "QUESTION"
+        "question": "Are you fun at parties?"
       },
       "topics": [
         {
@@ -55,27 +50,6 @@
           "name": "About the Job"
         }
       ]
-    },
-    {
-      "question": {
-        "question": "idle",
-        "type": "UTTERANCE"
-      },
-      "topics": []
-    },
-    {
-      "question": {
-        "question": "intro",
-        "type": "UTTERANCE"
-      },
-      "topics": []
-    },
-    {
-      "question": {
-        "question": "offtopic",
-        "type": "UTTERANCE"
-      },
-      "topics": []
     }
   ],
   "utterances": [

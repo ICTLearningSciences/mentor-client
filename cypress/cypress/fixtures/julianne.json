@@ -3,8 +3,6 @@
   "name": "Julianne Nordhagen",
   "title": "Student Naval Aviator",
   "mentorType": "VIDEO",
-  "defaultSubject": null,
-  "subjects": [],
   "topics": [
     {
       "id": "aboutme",
@@ -18,8 +16,7 @@
   "questions": [
     {
       "question": {
-        "question": "Where were you born?",
-        "type": "QUESTION"
+        "question": "Where were you born?"
       },
       "topics": [
         {
@@ -30,8 +27,7 @@
     },
     {
       "question": {
-        "question": "Were you worried about starting college?",
-        "type": "QUESTION"
+        "question": "Were you worried about starting college?"
       },
       "topics": [
         {
@@ -39,27 +35,6 @@
           "name": "Challenges"
         }
       ]
-    },
-    {
-      "question": {
-        "question": "idle",
-        "type": "UTTERANCE"
-      },
-      "topics": []
-    },
-    {
-      "question": {
-        "question": "intro",
-        "type": "UTTERANCE"
-      },
-      "topics": []
-    },
-    {
-      "question": {
-        "question": "offtopic",
-        "type": "UTTERANCE"
-      },
-      "topics": []
     }
   ],
   "utterances": [

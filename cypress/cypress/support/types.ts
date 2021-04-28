@@ -8,7 +8,6 @@ The full terms of this copyright and license should always be found in the root 
 export interface Mentor {
   _id: string;
   name: string;
-  firstName: string;
   title: string;
   mentorType: MentorType;
   topics: Topic[];
@@ -17,19 +16,19 @@ export interface Mentor {
 }
 
 export interface Topic {
-  _id: string;
+  id: string;
   name: string;
 }
 
 export interface Answer {
   _id: string;
-  transcript: string;
   question: Question;
+  transcript: string;
 }
 
 export interface Question {
   question: string;
-  name: string;
+  name: UtteranceName;
 }
 
 export enum MentorType {

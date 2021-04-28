@@ -134,7 +134,6 @@ function onMentorsLoadRequested(
         title: "",
         mentorType: MentorType.VIDEO,
         topics: [],
-        subjects: [],
         questions: [],
         utterances: [],
       },

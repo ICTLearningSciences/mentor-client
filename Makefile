@@ -7,7 +7,6 @@ node_modules/license-check-and-add:
 PHONY: clean
 clean:
 	cd client && $(MAKE) clean
-	cd docker && $(MAKE) clean
 
 PHONY: develop
 develop:

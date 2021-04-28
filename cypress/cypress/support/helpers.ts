@@ -144,7 +144,7 @@ export function addGuestParams(query = {}, guestName = "guest") {
 }
 
 export function cyMockMentorData(data: any[]) {
-  return cyMockGQL("mentor", data, false);
+  return cyMockGQL("mentorPanel", [data], false);
 }
 
 export function cyMockConfig(config: Partial<Config>) {
@@ -159,8 +159,8 @@ export function mockMentorVtt(cy) {
   cy.intercept("**/*.vtt", { fixture: "default.vtt" });
 }
 
-export function mockApiQuestions(cy) {
-  cy.intercept("**/questions/?mentor=*&query=*", { fixture: "response.json" });
+export function mockApiQuestions(cy, response?: string) {
+  cy.intercept("**/questions/?mentor=*&query=*", { fixture: response || "response.json" });
 }
 
 export function toGuestUrl(url: string, guestName: string) {
@@ -206,13 +206,17 @@ export function mockDefaultSetup(
     config?: Partial<Config>;
     mentorData?: any[];
     gqlQueries?: MockGraphQLQuery[];
+    apiResponse?: string;
+    noMockApi?: boolean;
   } = {}
 ) {
   const config = args.config || {};
   const mentorData = args.mentorData || [clint, carlos, julianne];
   const gqlQueries = args.gqlQueries || [];
   mockMentorVideos(cy);
-  mockApiQuestions(cy);
+  if (!args.noMockApi) {
+    mockApiQuestions(cy, args.apiResponse);
+  }
   mockMentorVtt(cy);
   cyInterceptGraphQL(cy, [
     cyMockConfig(config),

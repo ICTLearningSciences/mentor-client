@@ -10,6 +10,7 @@ import {
   Config,
   Mentor,
   QuestionApiData,
+  QuestionType,
   Status,
   UtteranceName,
 } from "types";
@@ -82,7 +83,7 @@ export function subtitleUrl(
 }
 
 interface MentorQueryData {
-  mentor: Mentor;
+  mentorPanel: Mentor[];
 }
 
 interface GraphQLResponse<T> {
@@ -90,49 +91,36 @@ interface GraphQLResponse<T> {
   data?: T;
 }
 
-export async function fetchMentor(
+export async function fetchMentorPanel(
   config: Config,
-  mentorId: string
+  mentors: string[],
+  subject: string | undefined
 ): Promise<AxiosResponse<GraphQLResponse<MentorQueryData>>> {
   return await axios.post<GraphQLResponse<MentorQueryData>>(config.urlGraphql, {
     query: `
       query {
-        mentor(id: "${mentorId}") {
+        mentorPanel(mentors: ${JSON.stringify(mentors).replace(
+          /"([^"]+)":/g,
+          "$1:"
+        )}) {
           _id
           name
-          firstName
           title
           mentorType
-          defaultSubject {
-            _id
-          }
-          subjects {
-            _id
-            topics {
-              id
-              name
-            }
-            questions {
-              topics {
-                id
-              }
-              question {
-                question
-                type
-              }
-            }
-          }
-          topics {
+          topics(${
+            subject ? `subject: "${subject}"` : `useDefaultSubject: true`
+          }) {
             id
             name
           }
-          questions {
+          questions(type: "${QuestionType.QUESTION}", ${
+      subject ? `subject: "${subject}"` : `useDefaultSubject: true`
+    }) {
             topics {
               id
             }
             question {
               question
-              type
             }
           }
           utterances(status: "${Status.COMPLETE}") {

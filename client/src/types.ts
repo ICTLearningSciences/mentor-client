@@ -23,17 +23,9 @@ export interface Mentor {
   name: string;
   title: string;
   mentorType: MentorType;
-  defaultSubject?: Subject;
-  subjects: Subject[];
   topics: Topic[];
   questions: SubjectQuestion[];
   utterances: Answer[];
-}
-
-export interface Subject {
-  _id: string;
-  topics: Topic[];
-  questions: SubjectQuestion[];
 }
 
 export interface Topic {
@@ -48,7 +40,6 @@ export interface SubjectQuestion {
 
 export interface Question {
   question: string;
-  type: QuestionType;
   name: UtteranceName;
 }
 

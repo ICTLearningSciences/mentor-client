@@ -3,86 +3,10 @@
   "name": "USC",
   "title": "COVID-19 FAQ Chat Bot",
   "mentorType": "CHAT",
-  "defaultSubject": {
-    "_id": "covid"
-  },
-  "subjects": [
-    {
-      "_id": "background",
-      "topics": [
-        {
-          "id": "aboutme",
-          "name": "About Me"
-        }
-      ],
-      "questions": [
-        {
-          "question": {
-            "question": "Where were you born?",
-            "type": "QUESTION"
-          },
-          "topics": [
-            {
-              "id": "aboutme",
-              "name": "About Me"
-            }
-          ]
-        },
-        {
-          "question": {
-            "question": "idle",
-            "type": "UTTERANCE"
-          },
-          "topics": []
-        },
-        {
-          "question": {
-            "question": "intro",
-            "type": "UTTERANCE"
-          },
-          "topics": []
-        },
-        {
-          "question": {
-            "question": "offtopic",
-            "type": "UTTERANCE"
-          },
-          "topics": []
-        }
-      ]
-    },
-    {
-      "_id": "covid",
-      "topics": [
-        {
-          "id": "covid",
-          "name": "COVID-19 General Information"
-        }
-      ],
-      "questions": [
-        {
-          "question": {
-            "question": "What are the symptoms of COVID-19?",
-            "type": "QUESTION"
-          },
-          "topics": [
-            {
-              "id": "covid",
-              "name": "COVID-19 General Information"
-            }
-          ]
-        }
-      ]
-    }
-  ],
   "topics": [
     {
-      "id": "aboutme",
-      "name": "About Me"
-    },
-    {
       "id": "covid",
-      "name": "COVID-19 General Guidelines"
+      "name": "COVID-19 General Information"
     }
   ],
   "questions": [
@@ -97,39 +21,6 @@
           "name": "COVID-19 General Information"
         }
       ]
-    },
-    {
-      "question": {
-        "question": "Where were you born?",
-        "type": "QUESTION"
-      },
-      "topics": [
-        {
-          "id": "aboutme",
-          "name": "About Me"
-        }
-      ]
-    },
-    {
-      "question": {
-        "question": "idle",
-        "type": "UTTERANCE"
-      },
-      "topics": []
-    },
-    {
-      "question": {
-        "question": "intro",
-        "type": "UTTERANCE"
-      },
-      "topics": []
-    },
-    {
-      "question": {
-        "question": "offtopic",
-        "type": "UTTERANCE"
-      },
-      "topics": []
     }
   ],
   "utterances": [

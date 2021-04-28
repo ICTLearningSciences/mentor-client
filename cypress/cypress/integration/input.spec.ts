@@ -59,7 +59,7 @@ describe("Input field", () => {
   });
 
   it("sends api call to get responses from mentors after sending input", () => {
-    mockDefaultSetup(cy, { mentorData: [clint, carlos, julianne] });
+    mockDefaultSetup(cy, { mentorData: [clint, carlos, julianne], noMockApi: true });
     cy.viewport("iphone-x");
 
     cy.intercept("**/questions/?mentor=clint&query=how+old+are+you", {

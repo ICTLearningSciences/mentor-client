@@ -8,7 +8,7 @@ The full terms of this copyright and license should always be found in the root 
 import { ActionCreator, AnyAction, Dispatch } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import Cmi5 from "@xapi/cmi5";
-import { fetchConfig, fetchMentor, getUtterance, queryMentor } from "api";
+import { fetchConfig, fetchMentorPanel, getUtterance, queryMentor } from "api";
 import {
   MentorsLoadRequest,
   MentorsLoadResult,
@@ -232,19 +232,13 @@ export const loadMentors: ActionCreator<
       {}
     ),
   };
-  for (const mentorId of mentors) {
-    try {
-      const result = await fetchMentor(config, mentorId);
-      if (result.status === 200 && result.data.data) {
-        const mentor: Mentor = result.data.data.mentor;
-        const subject = mentor.subjects.find(
-          (s) => s._id === (subjectId || mentor.defaultSubject?._id)
-        );
-        const topics = subject ? subject.topics : mentor.topics;
-        const questions = (subject
-          ? subject.questions
-          : mentor.questions
-        ).filter((q) => q.question.type === QuestionType.QUESTION);
+  try {
+    const result = await fetchMentorPanel(config, mentors, subjectId);
+    if (result.status === 200 && result.data.data) {
+      const mentorPanel: Mentor[] = result.data.data.mentorPanel;
+      for (const mentor of mentorPanel) {
+        const topics = mentor.topics;
+        const questions = mentor.questions;
         const topicQuestions: TopicQuestions[] = [];
         const recommendedQuestions = getState().recommendedQuestions;
         if (recommendedQuestions.length > 0) {
@@ -272,16 +266,16 @@ export const loadMentors: ActionCreator<
           answer_id: getUtterance(mentor, UtteranceName.INTRO)?._id,
           answerDuration: Number.NaN,
         };
-        mentorLoadResult.mentorsById[mentorId] = {
+        mentorLoadResult.mentorsById[mentor._id] = {
           data: mentorData,
           status: ResultStatus.SUCCEEDED,
         };
-      } else {
-        console.error(`error loading mentor ${mentorId}`, result);
       }
-    } catch (mentorErr) {
-      console.error(mentorErr);
+    } else {
+      console.error(`error loading mentors ${mentors}`, result);
     }
+  } catch (mentorErr) {
+    console.error(mentorErr);
   }
   mentorLoadResult.mentor = mentors.find(
     (id) => mentorLoadResult.mentorsById[id].status === ResultStatus.SUCCEEDED
