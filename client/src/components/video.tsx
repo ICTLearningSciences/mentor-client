@@ -1,7 +1,6 @@
 /*
 This software is Copyright ©️ 2020 The University of Southern California. All Rights Reserved. 
 Permission to use, copy, modify, and distribute this software and its documentation for educational, research and non-profit purposes, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and subject to the full license file found in the root of this software deliverable. Permission to make commercial use of this software may be obtained by contacting:  USC Stevens Center for Innovation University of Southern California 1150 S. Olive Street, Suite 2300, Los Angeles, CA 90115, USA Email: accounting@stevens.usc.edu
-
 The full terms of this copyright and license should always be found in the root directory of this software deliverable as "license.txt" and if these terms are not found with this software, please contact the USC Stevens Center for the full license.
 */
 import React, { useState } from "react";
@@ -12,6 +11,10 @@ import { videoUrl, subtitleUrl, idleUrl } from "api";
 import LoadingSpinner from "components/video-spinner";
 import MessageStatus from "components/video-status";
 import { chromeVersion } from "utils";
+import Switch from "@material-ui/core/Switch";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+
 import {
   answerFinished,
   faveMentor,
@@ -67,6 +70,7 @@ function Video(args: { playing?: boolean }): JSX.Element {
       })
     );
   }
+  const [toggleCaptions, setCaptions] = React.useState(true);
 
   return (
     <div
@@ -74,82 +78,61 @@ function Video(args: { playing?: boolean }): JSX.Element {
       data-test-playing={Boolean(playing)}
       data-video-type={isIdle ? "idle" : "answer"}
     >
-      <MemoVideoPlayer
-        isIdle={Boolean(isIdle)}
+      <ReactPlayer
+        style={{
+          backgroundColor: "black",
+          position: "relative",
+          margin: "0 auto",
+        }}
+        url={video.src}
+        muted={Boolean(isIdle)}
+        onDuration={setDuration}
         onEnded={onEnded}
         onPlay={onPlay}
+        loop={isIdle}
+        controls={!isIdle}
         playing={Boolean(playing)}
-        setDuration={setDuration}
-        subtitlesOn={Boolean(subtitlesSupported)}
-        subtitlesUrl={video.subtitles}
-        videoUrl={video.src}
+        playsinline
+        webkit-playsinline="true"
+        config={{
+          file: {
+            tracks: toggleCaptions
+              ? [
+                  {
+                    kind: "subtitles",
+                    label: "subtitles",
+                    src: video.subtitles,
+                    srcLang: "en",
+                    default: true,
+                  },
+                ]
+              : [],
+          },
+        }}
       />
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Switch
+              size="small"
+              checked={toggleCaptions}
+              onChange={(e) => {
+                setCaptions((prev) => !prev);
+                console.log(toggleCaptions ? "ON" : "OFF");
+              }}
+              data-cy="caption-switch"
+            />
+          }
+          label="Captions"
+        />
+      </FormGroup>
+      {toggleCaptions ? "ON" : "OFF"}
       <FaveButton />
       <LoadingSpinner mentor={curMentor} />
       <MessageStatus mentor={curMentor} />
     </div>
   );
 }
-
-interface VideoPlayerParams {
-  isIdle: boolean;
-  onEnded: () => void;
-  onPlay: () => void;
-  playing?: boolean;
-  setDuration: (d: number) => void;
-  subtitlesOn: boolean;
-  subtitlesUrl: string;
-  videoUrl: string;
-}
-
-function VideoPlayer(args: VideoPlayerParams) {
-  const {
-    isIdle,
-    onEnded,
-    onPlay,
-    playing,
-    setDuration,
-    subtitlesOn,
-    subtitlesUrl,
-    videoUrl,
-  } = args;
-  return (
-    <ReactPlayer
-      style={{
-        backgroundColor: "black",
-        position: "relative",
-        margin: "0 auto",
-      }}
-      url={videoUrl}
-      muted={Boolean(isIdle)}
-      onDuration={setDuration}
-      onEnded={onEnded}
-      onPlay={onPlay}
-      loop={isIdle}
-      controls={!isIdle}
-      playing={Boolean(playing)}
-      playsinline
-      webkit-playsinline="true"
-      config={{
-        file: {
-          tracks: subtitlesOn
-            ? [
-                {
-                  kind: "subtitles",
-                  label: "subtitles",
-                  src: subtitlesUrl,
-                  srcLang: "en",
-                  default: true,
-                },
-              ]
-            : [],
-        },
-      }}
-    />
-  );
-}
-
-const MemoVideoPlayer = React.memo(VideoPlayer);
 
 function FaveButton() {
   const dispatch = useDispatch();
