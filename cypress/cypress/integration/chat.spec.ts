@@ -117,4 +117,28 @@ describe("Chat", () => {
       "[data-cy=chat-msg-2] [data-cy=feedback-btn] [data-cy=neutral]"
     ).should("not.exist");
   });
+
+  it("send button is hidden and text input is disabled if canned mentor", () => {
+    const testCovid = {
+      ...covid,
+      canned: true,
+    };
+
+    mockDefaultSetup(cy, {
+      config: { mentorsDefault: ["covid"] },
+      mentorData: [testCovid],
+      apiResponse: "response_with_feedback.json",
+      gqlQueries: [cyMockGQL("userQuestionSetFeedback", null, false)],
+    });
+    cy.intercept("**/questions/?mentor=covid&query=*", {
+      fixture: "response_with_feedback.json",
+    });
+    cy.viewport("iphone-x");
+    cy.visit("/");
+    cy.get("[data-cy=chat-thread]").should("exist");
+    cy.get("[data-cy=input-field]").within(($within) => {
+      cy.get("textarea").should("be.disabled");
+    });
+    cy.get("[data-cy=input-send]").should("not.exist");
+  });
 });

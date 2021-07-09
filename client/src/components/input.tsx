@@ -45,6 +45,9 @@ function Input(): JSX.Element {
   const config = useSelector<State, Config>((s) => s.config);
   const curTopic = useSelector<State, string>((s) => s.curTopic);
   const curQuestion = useSelector<State, string>((s) => s.curQuestion);
+  const curMentorCanned = useSelector<State, boolean>(
+    (s) => s.mentorsById[s.curMentor]?.mentor?.canned
+  );
   const questionInput = useSelector<State, QuestionInput>(
     (s) => s.questionInput
   );
@@ -119,18 +122,21 @@ function Input(): JSX.Element {
           onClick={onQuestionInputSelected}
           onBlur={onBlur}
           onKeyPress={onKeyPress}
+          disabled={curMentorCanned}
         />
         <Divider className={classes.divider} />
-        <Button
-          data-cy="input-send"
-          className={classes.button}
-          onClick={() => onQuestionInputSend()}
-          disabled={!questionInput.question}
-          variant="contained"
-          color="primary"
-        >
-          Send
-        </Button>
+        {!curMentorCanned ? (
+          <Button
+            data-cy="input-send"
+            className={classes.button}
+            onClick={() => onQuestionInputSend()}
+            disabled={!questionInput.question}
+            variant="contained"
+            color="primary"
+          >
+            Send
+          </Button>
+        ) : undefined}
       </Paper>
       <Topics onSelected={onTopicSelected} />
       <Collapse in={Boolean(curTopic)} timeout="auto" unmountOnExit>

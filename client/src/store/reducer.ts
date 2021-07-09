@@ -138,6 +138,7 @@ function onMentorsLoadRequested(
         _id: mentorId,
         name: "",
         title: "",
+        canned: false,
         mentorType: MentorType.VIDEO,
         topics: [],
         subjects: [],

@@ -22,6 +22,7 @@ export interface Mentor {
   _id: string;
   name: string;
   title: string;
+  canned: boolean;
   mentorType: MentorType;
   defaultSubject?: Subject;
   subjects: Subject[];
@@ -177,7 +178,6 @@ export interface MentorState {
   topic_questions: TopicQuestions[];
   status: MentorQuestionStatus;
   answerDuration: number;
-
   answer_id?: string;
   answer_text?: string;
   answer_media: Media[];
