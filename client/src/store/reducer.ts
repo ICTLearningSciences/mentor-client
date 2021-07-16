@@ -288,8 +288,10 @@ function onQuestionSent(state: State, action: QuestionSentAction): State {
               feedbackId: "",
               isFeedbackSendInProgress: false,
               visibility: false,
+              chatQuestionId: state.questionsAsked.length + 1,
             },
           ],
+          showAllAnswers: true,
         },
         curQuestion: action.payload.question,
         curQuestionSource: action.payload.source,
@@ -384,6 +386,7 @@ function onQuestionAnswered(
   if (!mentor.topic_questions[history].questions.includes(response.question)) {
     mentor.topic_questions[history].questions.push(response.question);
   }
+
   return {
     ...state,
     chat: {
@@ -400,9 +403,12 @@ function onQuestionAnswered(
           feedbackId: action.mentor.answerFeedbackId,
           isFeedbackSendInProgress: false,
           visibility: false,
+          chatQuestionId: state.questionsAsked.length,
         },
       ],
+      showAllAnswers: true,
     },
+
     isIdle: false,
     mentorsById: {
       ...state.mentorsById,

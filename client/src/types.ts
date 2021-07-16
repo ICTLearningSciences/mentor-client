@@ -23,6 +23,7 @@ export interface ChatMsg {
   feedbackId: string;
   isFeedbackSendInProgress: boolean;
   visibility: boolean;
+  chatQuestionId: number;
 }
 
 export interface Mentor {
