@@ -123,14 +123,11 @@ export function ChatItem(props: {
       }}
     >
       {visibilityIcon}
-      <ReactMarkdown
-        source={
-          isUser === false
-            ? message.name.concat(": ", message.text)
-            : message.text
-        }
-        renderers={{ link: LinkRenderer }}
-      />
+      <ReactMarkdown renderers={{ link: LinkRenderer }}>
+        {isUser === false
+          ? message.name.concat(": ", message.text)
+          : message.text}
+      </ReactMarkdown>
       {message.feedbackId ? (
         <div
           data-cy="feedback-btn"
