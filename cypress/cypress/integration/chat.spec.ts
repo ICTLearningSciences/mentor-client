@@ -90,7 +90,9 @@ describe("Chat", () => {
       config: { mentorsDefault: ["covid"] },
       mentorData: [covid],
       apiResponse: "response_with_feedback.json",
-      gqlQueries: [cyMockGQL("userQuestionSetFeedback", null, false)],
+      gqlQueries: [
+        cyMockGQL("UserQuestionSetFeedback", { userQuestionSetFeedback: null }),
+      ],
     });
     cy.intercept("**/questions/?mentor=covid&query=*", {
       fixture: "response_with_feedback.json",

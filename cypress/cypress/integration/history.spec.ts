@@ -40,7 +40,6 @@ describe("Video Chat History", () => {
 
   it("displays questions that have been asked via topic button", () => {
     visitAsGuestWithDefaultSetup(cy, "/");
-
     cy.get("[data-cy=header]").should("have.attr", "data-mentor", "clint");
     cy.get("[data-cy=topic-0]").trigger("mouseover").click();
     cy.get("[data-cy=topic-0]").trigger("mouseover").click();
@@ -56,7 +55,9 @@ describe("Video Chat History", () => {
       config: { mentorsDefault: ["clint"] },
       mentorData: [clint],
       apiResponse: "response_with_feedback.json",
-      gqlQueries: [cyMockGQL("userQuestionSetFeedback", null, false)],
+      gqlQueries: [
+        cyMockGQL("UserQuestionSetFeedback", { userQuestionSetFeedback: null }),
+      ],
     });
     cy.intercept("**/questions/?mentor=clint&query=*", {
       fixture: "response_with_feedback.json",
@@ -83,7 +84,9 @@ describe("Video Chat History", () => {
       config: { mentorsDefault: ["clint"] },
       mentorData: [clint],
       apiResponse: "response_with_feedback.json",
-      gqlQueries: [cyMockGQL("userQuestionSetFeedback", null, false)],
+      gqlQueries: [
+        cyMockGQL("UserQuestionSetFeedback", { userQuestionSetFeedback: null }),
+      ],
     });
     cy.visit("/");
     cy.intercept("**/questions/?mentor=clint&query=*", {
@@ -124,7 +127,9 @@ describe("Video Chat History", () => {
       config: { mentorsDefault: ["clint", "carlos"] },
       mentorData: [clint, carlos],
       apiResponse: "response_with_feedback.json",
-      gqlQueries: [cyMockGQL("userQuestionSetFeedback", null, false)],
+      gqlQueries: [
+        cyMockGQL("UserQuestionSetFeedback", { userQuestionSetFeedback: null }),
+      ],
     });
     cy.visit("/");
     cy.intercept("**/questions/?mentor=clint&query=*", {
@@ -150,7 +155,9 @@ describe("Video Chat History", () => {
       config: { mentorsDefault: ["clint", "carlos"] },
       mentorData: [clint, carlos],
       apiResponse: "response_with_feedback.json",
-      gqlQueries: [cyMockGQL("userQuestionSetFeedback", null, false)],
+      gqlQueries: [
+        cyMockGQL("UserQuestionSetFeedback", { userQuestionSetFeedback: null }),
+      ],
     });
     cy.visit("/");
     cy.intercept("**/questions/?mentor=clint&query=*", {
@@ -212,7 +219,9 @@ describe("Video Chat History", () => {
       config: { mentorsDefault: ["clint", "carlos"] },
       mentorData: [clint, carlos],
       apiResponse: "response_with_feedback.json",
-      gqlQueries: [cyMockGQL("userQuestionSetFeedback", null, false)],
+      gqlQueries: [
+        cyMockGQL("UserQuestionSetFeedback", { userQuestionSetFeedback: null }),
+      ],
     });
     cy.visit("/");
     cy.intercept("**/questions/?mentor=clint&query=*", {
@@ -252,7 +261,9 @@ describe("Video Chat History", () => {
       config: { mentorsDefault: ["clint", "carlos"] },
       mentorData: [clint, carlos],
       apiResponse: "response_with_feedback.json",
-      gqlQueries: [cyMockGQL("userQuestionSetFeedback", null, false)],
+      gqlQueries: [
+        cyMockGQL("UserQuestionSetFeedback", { userQuestionSetFeedback: null }),
+      ],
     });
     cy.intercept("**/questions/?mentor=clint&query=*", {
       fixture: "response_with_feedback.json",
@@ -304,7 +315,9 @@ describe("Video Chat History", () => {
       config: { mentorsDefault: ["clint", "carlos"] },
       mentorData: [clint, carlos],
       apiResponse: "response_with_feedback.json",
-      gqlQueries: [cyMockGQL("userQuestionSetFeedback", null, false)],
+      gqlQueries: [
+        cyMockGQL("UserQuestionSetFeedback", { userQuestionSetFeedback: null }),
+      ],
     });
     cy.intercept("**/questions/?mentor=clint&query=*", {
       fixture: "response_with_feedback.json",
